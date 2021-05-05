@@ -50,10 +50,10 @@ exports.handler = async function(event) {
       let movie = moviesFromCsv[i]
 
       // check if the movie meets the provided querystring parameters and ignore those results with no runtime (runtimeMinutes ="\\N") and no genre
-      // (use .includes to include movies with mutliple genres out of which the specified genre is one, movies with no genre will be ingored automatically)
+      // (use .includes to include movies with mutliple genres out of which the specified genre is one, movies with no genre will be ignored automatically)
       if (movie.startYear == year && movie.genres.includes(genre) == true && movie.runtimeMinutes != '\\N') {
 
-        // Create a new object containing the required details for each movie
+        // create a new object containing the required details for each movie
         let movieInfo = {
           primaryTitle: movie.primaryTitle,
           releaseYear: movie.startYear,
@@ -68,7 +68,7 @@ exports.handler = async function(event) {
     // add the number of movies to the resulting JSON
     returnValue.numResults = returnValue.movies.length
 
-    // a lambda function returns a status code and a string of data
+    // return the final JSON-based API
     return {
       statusCode: 200, // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
       body: JSON.stringify(returnValue) // a string of data
